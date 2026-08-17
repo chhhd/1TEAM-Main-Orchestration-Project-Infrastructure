@@ -1,0 +1,5 @@
+__pycache__/
+*.pyc
+vulnapp/server.log
+vulnapp/uploads/*
+!vulnapp/uploads/.gitkeep

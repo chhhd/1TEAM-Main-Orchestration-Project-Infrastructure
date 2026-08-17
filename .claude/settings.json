@@ -1,0 +1,31 @@
+{
+  "permissions": {
+    "allow": [
+      "Read(*)",
+      "Grep(*)",
+      "Glob(*)",
+      "Bash(python3:*)",
+      "Bash(python:*)",
+      "Bash(pip install:*)",
+      "Bash(git status)",
+      "Bash(git diff:*)",
+      "Bash(git log:*)",
+      "Bash(curl http://127.0.0.1*)",
+      "Bash(curl http://localhost*)",
+      "Bash(curl -s http://127.0.0.1*)",
+      "Bash(curl -s http://localhost*)"
+    ],
+    "ask": [
+      "Bash(curl:*)",
+      "Bash(git commit:*)",
+      "Bash(git push:*)",
+      "Bash(rm:*)",
+      "WebFetch(*)"
+    ],
+    "deny": [
+      "Bash(rm -rf /*)",
+      "Bash(git push --force:*)",
+      "Bash(git reset --hard:*)"
+    ]
+  }
+}
