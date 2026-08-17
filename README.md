@@ -10,6 +10,26 @@
 | 권한 모드 설계 | `.claude/settings.json` | `python`/`curl(loopback)`/`git status` 등은 자동 승인, `git push`/`git commit`/`rm`/외부 `curl`은 확인 요청, 파괴적 명령은 거부 |
 | Local Vulnerable Web App | `vulnapp/app.py` | `/search`(SQLi), `/lookup`(음성 대조군), `/user?id=`(IDOR), `/admin`(무인증), `/upload`(무검증 업로드), `/fetch?url=`(SSRF) — 127.0.0.1:5000 전용 |
 | 오케스트레이션 흐름 실측 검증 | `docs/orchestration-flow-verification.md` | recon → 라우팅 → injection-agent/access-control-agent 병렬 호출 → 결과 수렴까지, 실제 subagent 호출 + 실제 HTTP 요청으로 재현한 로그 (시뮬레이션 아님) |
+| 증적 기록(evidence.csv) 절차 | `evidence/`, `scripts/`, `.claude/skills/evidence-logging/` | 5명 전원이 같은 스키마로 모든 테스트 시도를 append-only CSV에 남기는 절차 — 아래 참고 |
+
+## 증적을 남기는 과정 (evidence.csv)
+
+라우팅/흐름 검증과는 별개로, **모든 테스트 시도**(finding으로 이어졌든 아니든)를
+공통 스키마로 남기는 절차를 만들었다.
+
+- `evidence/evidence.csv` — `timestamp,target,endpoint,agent,operator,caller,hypothesis,payload,observation,new_info,status,evidence_ref` 스키마의 append-only 로그. `agent`는 `Recon`/`Injection`/`IDOR`/`Auth`/`CVE` 중 하나로 5명 전원이 같은 파일·같은 컬럼을 쓴다.
+- `scripts/append_evidence.py` — 행 추가 전용 CLI. payload에 쉼표·따옴표가 섞여도 CSV가 깨지지 않도록 손 편집을 막는다.
+- `scripts/confirmed_summary.py` — 오케스트레이터 호출 시점에 `status=confirmed` 행만 걸러서 전달용 요약을 만든다(팀원1이 실행).
+- `.claude/skills/evidence-logging/SKILL.md` — 5개 agent 전원이 실행 중 로드하는 공용 절차: hypothesis는 결과를 보기 전에 적고, 시도 하나 끝날 때마다 즉시 기록하고, `unconfirmed`→`confirmed` 승격은 기존 행을 고치지 않고 새 행을 추가(재현 2~3회 확인 후)한다.
+
+**실제로 검증됨** — `evidence/evidence.csv`에 있는 6행은 injection-agent를
+vulnapp `/search`, `/lookup`에 실제로 돌려서 시도마다 즉시 기록한 결과다
+(baseline→attack→control→재현확인→음성대조군 2건). `confirmed_summary.py`를
+돌리면 unconfirmed 5건은 걸러지고 confirmed 1건만 나온다 — 실제로 확인함.
+
+> **상태판(Notion) 연동은 아직 없다.** 실제 Notion 페이지/DB ID가 없어서
+> 임의로 만들지 않았다 — ID가 정해지면 연동한다. 그 전까지는 `status` 컬럼과
+> git 커밋 로그가 상태판 역할을 한다 (`evidence/README.md` 참고).
 
 ## 다른 저장소와의 관계
 
