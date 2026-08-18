@@ -3,3 +3,7 @@ __pycache__/
 vulnapp/server.log
 vulnapp/uploads/*
 !vulnapp/uploads/.gitkeep
+
+# evidence.csv에서 날짜별로 뽑아낸 파생 산출물(scripts/export_by_date.py) —
+# evidence.csv가 유일한 진실 소스이므로 이 재생성 가능한 사본은 커밋하지 않음
+evidence/evidence_*.csv
