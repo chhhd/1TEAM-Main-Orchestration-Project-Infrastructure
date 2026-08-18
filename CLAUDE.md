@@ -101,7 +101,8 @@ docs/orchestration-flow-verification.md   recon→routing→후속 subagent 호�
 - **오케스트레이터가 subagent를 호출할 때**, 반드시 `operator`(실행한 사람 이름)와 `caller=orchestrator`를 프롬프트에 명시해서 넘긴다 — subagent는 이 두 값을 추측하지 않는다.
 - **CSV는 손으로 편집하지 않는다.** `scripts/append_evidence.py`로만 행을 추가한다 (payload에 쉼표/따옴표가 섞이면 손 편집은 깨진다).
 - **status 승격은 append-only.** `unconfirmed` 행을 고쳐서 `confirmed`로 바꾸지 않고, 재현 확인 후 새 행을 추가한다.
-- **오케스트레이터 호출 시점에 팀원1이 `python scripts/confirmed_summary.py`로 confirmed 행만 모아서 전달한다** — unconfirmed/dead-end 행은 원본 CSV에는 남지만 오케스트레이터 컨텍스트에는 안 들어간다 (토큰 최소화 원칙, 위 §중복 방지 규칙과 같은 이유).
+- **각자 자기 레포에 커밋한 뒤, 같은 행을 `1TEAM-MEMORY`의 evidence.csv에도 동기화한다** (append+push) — `evidence/README.md`의 "1TEAM-MEMORY에도 동기화" 절 참고. 5명 각자 레포에만 남기면 팀원1이 5곳을 따로 pull해서 취합해야 한다.
+- **오케스트레이터 호출 시점에 팀원1이 `1TEAM-MEMORY` 클론에서 `python scripts/confirmed_summary.py`로 confirmed 행만 모아서 전달한다** (이 레포가 아니라 `1TEAM-MEMORY`의 evidence.csv 기준 — 5명분이 모이는 곳이 거기이기 때문) — unconfirmed/dead-end 행은 원본 CSV에는 남지만 오케스트레이터 컨텍스트에는 안 들어간다 (토큰 최소화 원칙, 위 §중복 방지 규칙과 같은 이유).
 - **상태판(Notion) 연동은 아직 없다.** 이 저장소에는 실제 Notion 페이지/DB 연결이 설정돼 있지 않다 — `evidence/README.md`의 "상태판" 절 참고. 연동 전까지는 `evidence/evidence.csv`의 `status` 컬럼과 git 커밋 로그가 사실상의 상태판이다.
 - **커밋 컨벤션**: `git commit -m "<이름>: <endpoint> <agent> 시도 N건"` — 사람 오퍼레이터가 직접 커밋한다(agent가 대신 커밋하지 않는다).
 

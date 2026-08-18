@@ -3,7 +3,12 @@
 `CLAUDE.md`의 §범위 제한(Rules of Engagement)이 참조하는 파일. 여기 명시된
 호스트/URL 외에는 스캔·요청하지 않는다.
 
-## 이 저장소의 허용 대상
+> **실제 대회/훈련 대상은 [`1TEAM-MEMORY`의 target-info.md](https://github.com/chhhd/1TEAM-MEMORY/blob/main/target-info.md)가
+> 단일 진실 소스다.** 이 파일에 있는 것은 오케스트레이션 흐름/agent 정의를
+> 개발·검증할 때 쓴 이 저장소 소유의 로컬 대상이다. Phase 1~4 게임을 실제로
+> 진행할 때는 `1TEAM-MEMORY`쪽 "인가된 대상" 표를 기준으로 삼는다.
+
+## 이 저장소의 허용 대상 (로컬 개발·검증용)
 
 | 대상 | 용도 | 비고 |
 |---|---|---|
