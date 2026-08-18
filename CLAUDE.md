@@ -64,6 +64,19 @@ docs/orchestration-flow-verification.md   recon→routing→후속 subagent 호�
 - 정찰 결과를 전달할 때는 전체 원문이 아니라 §라우팅에 필요한 필드만 요약해서
   넘긴다 (토큰 최소화 — subagent는 독립 컨텍스트이므로 원본은 그 안에만 남는다).
 
+## 범위 제한 (Rules of Engagement)
+
+`1TEAM-MEMORY`(팀 통합 규정 저장소)와 동일한 규정을 이 저장소 레벨에서도 지킨다.
+
+- `target-info.md`에 명시된 호스트/URL/IP 대역 외에는 스캔·요청하지 않는다.
+- 공개 인터넷의 무관한 서비스에 대해 대량 스캔, 무차별 대입, DoS성 요청을 절대
+  수행하지 않는다.
+- 실제 크리덴셜, 개인정보, 플래그 원문은 커밋하지 않는다 — `evidence/evidence.csv`
+  등 evidence 파일에는 해시/마스킹/요약만 남긴다.
+- 대상 시스템 상태를 변경하는 행위(쓰기, 삭제, 설정 변경)는 대회/훈련 규정상
+  명시적으로 허용된 경우에만 수행한다 (§안전 경계의 "파괴적/상태변경 probe" 규칙과
+  같은 취지).
+
 ## 안전 경계 (오케스트레이션 레벨)
 
 팀 공용 하네스(`dast-harness/dast_harness/safety.py`)가 강제하는 것과 같은

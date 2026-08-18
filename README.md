@@ -28,9 +28,11 @@ vulnapp `/search`, `/lookup`에 실제로 돌려서 시도마다 즉시 기록�
 (baseline→attack→control→재현확인→음성대조군 2건). `confirmed_summary.py`를
 돌리면 unconfirmed 5건은 걸러지고 confirmed 1건만 나온다 — 실제로 확인함.
 
-> **상태판(Notion) 연동은 아직 없다.** 실제 Notion 페이지/DB ID가 없어서
-> 임의로 만들지 않았다 — ID가 정해지면 연동한다. 그 전까지는 `status` 컬럼과
-> git 커밋 로그가 상태판 역할을 한다 (`evidence/README.md` 참고).
+> **상태판(Notion) 링크가 확보됐다** — `1TEAM-MEMORY`(팀 통합 규정 저장소)
+> 참고: https://app.notion.com/p/3ba73ca863d880b9b13ddb4d07c91b9c . 다만
+> Claude Code MCP 자동 연동은 이 저장소에 아직 없어서, 지금은 §절차대로
+> 사람이 직접 상태판을 갱신한다 — 그 전까지 `status` 컬럼과 git 커밋 로그가
+> 보조 상태판 역할을 한다 (`evidence/README.md` 참고).
 
 ## 다른 저장소와의 관계
 
@@ -69,6 +71,18 @@ python3 vulnapp/app.py &     # 127.0.0.1:5000
 
 `docs/orchestration-flow-verification.md`의 재현 커맨드로 SQLi/IDOR/무인증
 취약점을 직접 확인할 수 있다.
+
+## 범위 제한 (Rules of Engagement)
+
+`target-info.md`에 명시된 대상 외에는 스캔·요청하지 않는다. 자세한 규정은
+`CLAUDE.md`의 §범위 제한, 대상 목록은 [target-info.md](target-info.md) 참고
+(`1TEAM-MEMORY` 팀 통합 규정과 같은 원칙).
+
+## 링크
+
+- Notion 상태판: https://app.notion.com/p/3ba73ca863d880b9b13ddb4d07c91b9c
+- 대회/훈련 규정(Rules of Engagement): [target-info.md](target-info.md)
+- 팀 통합 규정 저장소: [`1TEAM-MEMORY`](https://github.com/chhhd/1TEAM-MEMORY)
 
 ## 알아둘 것
 

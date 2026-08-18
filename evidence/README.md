@@ -67,14 +67,16 @@ append-only 로그다.
    python scripts/confirmed_summary.py --agent IDOR   # 특정 agent만
    ```
 
-## 상태판(Notion) 관련 — 현재 한계
+## 상태판(Notion)
 
-이 저장소에는 실제 Notion 페이지/데이터베이스 연동이 설정돼 있지 않다.
-Claude Code 쪽에는 Notion MCP 도구 자체는 연결 가능하지만, 어느 팀
-Notion 페이지/DB를 상태판으로 쓸지는 우리가 임의로 정할 수 없는 부분이라
-실제 페이지 ID를 알려주면 그때 연동을 구성한다. 그 전까지는
-`evidence.csv`의 `status` 컬럼과 git 커밋 로그(`git log --oneline
-evidence/evidence.csv`)가 사실상의 상태판 역할을 한다.
+팀 통합 규정 저장소(`1TEAM-MEMORY`)에 실제 상태판 링크가 있다:
+https://app.notion.com/p/3ba73ca863d880b9b13ddb4d07c91b9c
+
+Claude Code 쪽에 Notion MCP 연동을 붙이는 작업은 아직 이 저장소에는 없다
+(page ID는 확보됐으므로, MCP 연결 설정이 정해지면 §절차 1번의 "상태판에서
+진행중으로 표시"를 자동화할 수 있다). 그 전까지는 위 절차대로 **사람이
+직접** 상태판을 갱신하고, `evidence.csv`의 `status` 컬럼과 git 커밋 로그
+(`git log --oneline evidence/evidence.csv`)가 보조 상태판 역할을 한다.
 
 ## 팀 로스터 (operator 이름 통일용)
 
