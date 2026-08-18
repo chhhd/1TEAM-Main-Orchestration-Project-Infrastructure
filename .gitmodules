@@ -1,0 +1,3 @@
+[submodule "dast-harness"]
+	path = dast-harness
+	url = https://github.com/moovingGun/dast-harness.git
