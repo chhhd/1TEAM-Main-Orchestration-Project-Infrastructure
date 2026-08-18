@@ -10,7 +10,7 @@ Usage:
         --target http://127.0.0.1:5000 \\
         --endpoint "/search?q=" \\
         --agent Injection \\
-        --operator 임희영 \\
+        --operator 팀원3 \\
         --caller manual \\
         --hypothesis "Boolean 기반 SQLi 여부" \\
         --payload "q=' OR '1'='1" \\

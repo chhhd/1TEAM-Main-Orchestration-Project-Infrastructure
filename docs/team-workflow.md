@@ -27,9 +27,9 @@
 
 Recon 결과를 보고 각자 자기 전문 Agent로 흩어진다.
 
-- **임희영**: Injection 계열 Endpoint(`/search` 등) → Injection Agent로 독립 테스트
-- **박나현**: IDOR/인가/로직 계열 Endpoint(`/user?id=`, `/admin` 등) → Access-Control Agent
-- **박정근**: 앞의 두 명이 찾은 Evidence를 실시간으로 보면서 알려진 CVE/Advisory
+- **팀원3**: Injection 계열 Endpoint(`/search` 등) → Injection Agent로 독립 테스트
+- **팀원4**: IDOR/인가/로직 계열 Endpoint(`/user?id=`, `/admin` 등) → Access-Control Agent
+- **팀원5**: 앞의 두 명이 찾은 Evidence를 실시간으로 보면서 알려진 CVE/Advisory
   패턴과 대조, 필요하면 자기 CVE Agent로 보조 검증
     - 10분 주기로 살펴보고, 물어보기
 - **이동건(팀원1)**: 이 구간에서는 직접 Agent를 돌리기보다 **상태판 모니터링 +
@@ -62,7 +62,7 @@ CLAUDE.md §기록 절차·§중복 방지 규칙("정찰 결과 전달 시 요�
 ## Phase 4 — 완료
 
 체인이 확인되면 즉시 전원에게 브로드캐스트하고 재현 절차를 기록. 이후
-박정근이 전체 Evidence 로그를 정리해서 "어떤 Agent가 몇 번 만에, 어떤
+팀원5이 전체 Evidence 로그를 정리해서 "어떤 Agent가 몇 번 만에, 어떤
 모델로 뭘 찾았는지" 실험 결과 요약본을 만든다.
 
 ## 참고: 통합 저장소 구조 (합칠 때 최종 형태)
@@ -86,6 +86,6 @@ ctf-agent-harness/
 | --- | --- | --- | --- |
 | 이동건 | 프로젝트 규칙, 권한 설정 | `CLAUDE.md`, `settings.json` | 레포 루트, `.claude/` |
 | 이나윤 | Recon Agent 정의 + 절차 | `.md` | `.claude/agents/recon-agent.md`, `.claude/skills/recon/SKILL.md` |
-| 임희영 | Injection Agent 정의 + 진단 절차 | `.md` | `.claude/agents/injection-agent.md`, `.claude/skills/injection/SKILL.md` |
-| 박나현 | IDOR/Auth Agent 정의 + 체크리스트 | `.md` | `.claude/agents/access-control-agent.md`, `.claude/skills/access-control/SKILL.md` |
-| 박정근 | CVE Agent, Hooks 스크립트 | `.md` + `.py`/`.sh`/`.js`(Hook용) | `.claude/agents/cve-agent.md`, `.claude/hooks/` |
+| 팀원3 | Injection Agent 정의 + 진단 절차 | `.md` | `.claude/agents/injection-agent.md`, `.claude/skills/injection/SKILL.md` |
+| 팀원4 | IDOR/Auth Agent 정의 + 체크리스트 | `.md` | `.claude/agents/access-control-agent.md`, `.claude/skills/access-control/SKILL.md` |
+| 팀원5 | CVE Agent, Hooks 스크립트 | `.md` + `.py`/`.sh`/`.js`(Hook용) | `.claude/agents/cve-agent.md`, `.claude/hooks/` |

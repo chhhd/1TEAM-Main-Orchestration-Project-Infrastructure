@@ -86,7 +86,7 @@ python3 vulnapp/app.py &     # 127.0.0.1:5000
 
 ## 알아둘 것
 
-- `.claude/settings.json`에는 hooks 설정이 없다 — 로깅/hooks는 팀원5(박정근)
+- `.claude/settings.json`에는 hooks 설정이 없다 — 로깅/hooks는 팀원5(팀원5)
   담당이며 통합 저장소에만 있다. 이 저장소만 단독으로 열면 `SubagentStop`
   자동 기록은 동작하지 않는다.
 - `vulnapp/`은 의도적으로 취약하게 만든 연습용 앱이다. `127.0.0.1` 바인딩을

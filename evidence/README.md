@@ -33,7 +33,7 @@ CSV를 텍스트 에디터로 직접 고치지 않는다 — payload에 쉼표/�
 ```bash
 python scripts/append_evidence.py \
   --target http://127.0.0.1:5000 --endpoint "/search?q=" --agent Injection \
-  --operator 임희영 --caller manual \
+  --operator 팀원3 --caller manual \
   --hypothesis "Boolean 기반 SQLi 여부" \
   --payload "q=' OR '1'='1" \
   --observation "응답 200, 레코드 2건->3건 (기밀 레코드 포함)" \
@@ -52,7 +52,7 @@ append-only 로그다.
    있어서, 이 단계에서 바로 로그에 옮길 재료가 나온다.
 3. **시도 하나 끝날 때마다 즉시 한 행 기록** — 몰아서 적지 않는다.
 4. **status는 본인이 1차 판단** — `unconfirmed`로 우선 기록, 재현 2~3회 확인 후
-   본인이 `confirmed`로 승격. 애매하면 CVE 담당(박정근)이나 팀원1에게
+   본인이 `confirmed`로 승격. 애매하면 CVE 담당(팀원5)이나 팀원1에게
    크로스체크 요청 후 승격.
 5. **커밋 & 상태판 갱신**:
    ```bash
@@ -92,6 +92,6 @@ Claude Code 쪽에 Notion MCP 연동을 붙이는 작업은 아직 이 저장소
 |---|---|
 | 이동건 | 오케스트레이션 & 인프라 |
 | 이나윤 | Recon |
-| 임희영 | Injection |
-| 박나현 | IDOR / Auth (Access-control) |
-| 박정근 | CVE & 평가 |
+| 팀원3 | Injection |
+| 팀원4 | IDOR / Auth (Access-control) |
+| 팀원5 | CVE & 평가 |
