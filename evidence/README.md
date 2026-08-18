@@ -61,7 +61,15 @@ append-only 로그다.
    git push
    ```
    그리고 상태판을 성공/실패/막힘으로 갱신.
-6. **오케스트레이터 호출 시점** — 팀원1이 아래로 confirmed 행만 모아 전달:
+6. **`1TEAM-MEMORY`에도 동기화** — 실제 Phase 1~4 게임 중에는 5번에서 커밋한
+   같은 행을 옆에 클론해둔 [`1TEAM-MEMORY`](https://github.com/chhhd/1TEAM-MEMORY)에도
+   append하고 push한다 (스크립트/스키마 동일, `1TEAM-MEMORY/scripts/append_evidence.py`
+   사용). 팀원1(본인)이 Phase 3에서 실제로 취합해야 할 건 이 레포뿐 아니라
+   나머지 4개 레포의 시도까지이므로, 각자 자기 레포 push 후 `1TEAM-MEMORY`에도
+   동기화하는 걸 팀 전체에 상기시킨다.
+7. **오케스트레이터 호출 시점** — 팀원1이 `1TEAM-MEMORY` 클론에서 아래로
+   confirmed 행만 모아 전달 (5개 레포 각각이 아니라 `1TEAM-MEMORY`의
+   evidence.csv 기준 — 그래야 5명분이 한 파일에서 모인다):
    ```bash
    python scripts/confirmed_summary.py               # 전체
    python scripts/confirmed_summary.py --agent IDOR   # 특정 agent만
