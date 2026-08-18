@@ -11,6 +11,7 @@
 | Local Vulnerable Web App | `vulnapp/app.py` | `/search`(SQLi), `/lookup`(음성 대조군), `/user?id=`(IDOR), `/admin`(무인증), `/upload`(무검증 업로드), `/fetch?url=`(SSRF) — 127.0.0.1:5000 전용 |
 | 오케스트레이션 흐름 실측 검증 | `docs/orchestration-flow-verification.md` | recon → 라우팅 → injection-agent/access-control-agent 병렬 호출 → 결과 수렴까지, 실제 subagent 호출 + 실제 HTTP 요청으로 재현한 로그 (시뮬레이션 아님) |
 | 증적 기록(evidence.csv) 절차 | `evidence/`, `scripts/`, `.claude/skills/evidence-logging/` | 5명 전원이 같은 스키마로 모든 테스트 시도를 append-only CSV에 남기는 절차 — 아래 참고 |
+| 공용 실행 계약 / 안전장치 (내구성) | `dast-harness/` (git submodule, pull-only) | `AgentFinding`/`Evidence`/`Probe` 계약, `AgentHttpClient`, `safety.py`(loopback/allowlist 강제), 다중 스캐너 오케스트레이션(`MultiScanRunner`) — 아래 "dast-harness와의 관계" 참고 |
 
 ## 증적을 남기는 과정 (evidence.csv)
 
@@ -40,6 +41,26 @@ vulnapp `/search`, `/lookup`에 실제로 돌려서 시도마다 즉시 기록�
 있다. 이 저장소의 경로 구조는 그 통합본과 그대로 맞아떨어지도록 맞춰뒀다
 (`.claude/agents/` 아래에 두면 그대로 합쳐짐).
 
+## dast-harness와의 관계 (틀 vs 내구성)
+
+이 저장소의 `CLAUDE.md`가 정의하는 건 **오케스트레이션의 틀** — 어떤 신호에
+어떤 agent를 라우팅할지, 언제 멈출지, 같은 걸 두 번 검사하지 않는 법, 시도를
+어떻게 기록할지다. 이 틀이 실제로 안전하고 일관되게 동작하도록 하는
+**실행 내구성**(공용 결과 계약, HTTP 요청 통제, 대상 인증 안전장치)은
+자체 구현하지 않고 [`dast-harness`](https://github.com/moovingGun/dast-harness)를
+**git submodule로 pull-only 연결**해서 가져온다.
+
+```bash
+git clone --recurse-submodules https://github.com/chhhd/1TEAM-Main-Orchestration-Project-Infrastructure.git
+# 이미 클론했다면
+git submodule update --init --recursive
+```
+
+두 문서가 상충하면 `dast-harness/AGENT_GUIDE.md`·`dast-harness/CLAUDE.md`가
+우선한다 (이 저장소 `CLAUDE.md` 최상단에 명시). `dast-harness/` 안 코드는 여기서
+직접 고치지 않는다 — 내구성 쪽 변경은 항상 원본 저장소에서 이뤄지고, 이
+저장소에는 submodule 커밋 포인터(`git submodule status`로 확인)만 갱신된다.
+
 ## 실행
 
 ```bash
@@ -56,3 +77,6 @@ python3 vulnapp/app.py &     # 127.0.0.1:5000
   자동 기록은 동작하지 않는다.
 - `vulnapp/`은 의도적으로 취약하게 만든 연습용 앱이다. `127.0.0.1` 바인딩을
   벗어나거나 실제 배포 환경에 올리지 않는다.
+- `dast-harness/`는 git submodule이라 일반 clone만으로는 비어 있다. 위
+  "dast-harness와의 관계" 절의 `--recurse-submodules` / `submodule update`를
+  먼저 돌려야 내용이 채워진다.
