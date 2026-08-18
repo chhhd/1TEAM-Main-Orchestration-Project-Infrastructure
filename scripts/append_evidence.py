@@ -22,6 +22,8 @@ Usage:
 import argparse
 import csv
 import os
+import re
+import subprocess
 import sys
 from datetime import datetime
 
@@ -88,6 +90,22 @@ def main():
             "evidence_ref": args.evidence_ref,
         })
     print(f"appended: {timestamp} {args.agent} {args.endpoint} [{args.status}] by {args.operator}")
+
+    # 방금 기록한 행이 속한 날짜의 evidence_<날짜>.csv를 자동 갱신한다.
+    # evidence.csv 자체가 진실 소스이고 이건 그 파생물을 최신 상태로 유지하는
+    # 것뿐이므로, export_by_date.py가 없거나 실패해도 evidence.csv 기록 자체는
+    # 이미 끝났으니 경고만 남기고 넘어간다 (append 실패로 취급하지 않음).
+    date_match = re.match(r"^(\d{4}-\d{2}-\d{2})[ T]\d{2}:\d{2}$", timestamp)
+    if date_match:
+        export_script = os.path.join(os.path.dirname(os.path.abspath(__file__)), "export_by_date.py")
+        if os.path.exists(export_script):
+            try:
+                subprocess.run([sys.executable, export_script, "--date", date_match.group(1)], check=False)
+            except OSError as e:
+                print(f"[경고] evidence_{date_match.group(1)}.csv 자동 갱신 실패: {e}", file=sys.stderr)
+    else:
+        print("[경고] timestamp에 날짜가 없어 evidence_<날짜>.csv 자동 갱신을 건너뜀 "
+              "(--timestamp를 HH:MM만으로 직접 지정한 경우)", file=sys.stderr)
 
 
 if __name__ == "__main__":
