@@ -12,7 +12,7 @@ timestamp,target,endpoint,agent,operator,caller,hypothesis,payload,observation,n
 
 | 컬럼 | 의미 |
 |---|---|
-| `timestamp` | 기록 시각 `HH:MM` (예: `14:32`). **알려진 한계: 날짜가 없다** — 여러 날짜에 걸친 로그를 구분해야 하면 `git log`의 커밋 시각으로 보정한다. 스키마를 임의로 바꾸지 않는다 |
+| `timestamp` | 기록 시각 `YYYY-MM-DD HH:MM` (예: `2026-08-18 14:32`). 2026-08-18부터 날짜를 포함하도록 변경됨(`scripts/append_evidence.py`가 자동 채움) — 그 이전에 기록된 행은 `HH:MM`만 있는 옛 형식 그대로 남아 있고, 그런 행의 날짜가 필요하면 기존대로 `git log`의 커밋 시각으로 보정한다 |
 | `target` | 테스트한 base URL |
 | `endpoint` | 구체적인 엔드포인트/파라미터 |
 | `agent` | `Recon` \| `Injection` \| `IDOR` \| `Auth` \| `CVE` (닫힌 어휘) — `IDOR`은 객체/BOLA류, `Auth`는 수직 권한상승·비즈니스 로직류 (access-control-agent가 둘 다 다루므로 이 컬럼으로 세부 구분) |

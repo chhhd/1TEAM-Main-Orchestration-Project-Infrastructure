@@ -57,15 +57,15 @@ def parse_args():
     p.add_argument("--status", required=True, choices=STATUSES)
     p.add_argument("--evidence-ref", default="-", dest="evidence_ref")
     p.add_argument("--timestamp", default=None,
-                    help="HH:MM 형식. 생략하면 현재 시각으로 자동 채움 "
-                         "(주의: 스키마가 시:분만 기록하므로 날짜 정보는 없음 — "
-                         "여러 날짜에 걸친 로그는 evidence/README.md의 한계 참고)")
+                    help="YYYY-MM-DD HH:MM 형식. 생략하면 현재 날짜/시각으로 자동 채움 "
+                         "(2026-08-18부로 날짜 포함이 기본 — 기존 행의 HH:MM 전용 형식은 "
+                         "그대로 두고 새 행부터 적용)")
     return p.parse_args()
 
 
 def main():
     args = parse_args()
-    timestamp = args.timestamp or datetime.now().strftime("%H:%M")
+    timestamp = args.timestamp or datetime.now().strftime("%Y-%m-%d %H:%M")
 
     os.makedirs(os.path.dirname(CSV_PATH), exist_ok=True)
     is_new = not os.path.exists(CSV_PATH)
