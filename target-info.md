@@ -15,6 +15,12 @@
 | `http://127.0.0.1:5000` | `vulnapp/app.py` — 오케스트레이션 흐름 검증용 로컬 취약 앱 | `/search`, `/lookup`, `/user?id=`, `/admin`, `/upload`, `/fetch?url=` |
 | `http://127.0.0.1:8080` | `dast-harness/targets/vulnerable_app/app.py` (submodule) — 스캐너/에이전트 정확도 검증용 통제 취약 타겟 | dast-harness 쪽 `ground_truth.json` 참고 |
 
+## 실제 대회/훈련 대상 (1TEAM-MEMORY 인가 확인됨)
+
+| 대상 | 용도 | 비고 |
+|---|---|---|
+| `43.200.51.235` (`ftp://` 21, `http://` 8081) | 외부 네트워크 점검 대상 — 1TEAM-MEMORY `target-info.md` 등재 인가 대상 | Phase 1(정찰)·Phase 2(수동 공격 체인) 결과는 §실제 점검 대상: `43.200.51.235` 참고. FTP 계정/Grafana 자격 증명은 마스킹된 형태로만 기록. |
+
 ## 원칙
 
 - loopback(`127.0.0.1`/`localhost`) 또는 명시적으로 허가된 대상만 스캔한다
